@@ -1,0 +1,6 @@
+obj
+bin
+.vscode
+FileGoatContext*wal
+FileGoatContext*db
+FileGoatContext*shm
