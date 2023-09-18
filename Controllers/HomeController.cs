@@ -1,4 +1,5 @@
 using FileGoat.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ namespace FileGoat.Controllers
                 private ILogger<HomeController> _logger;
                 private FileGoatContext _context;
 
+
                 public HomeController(ILogger<HomeController> logger, FileGoatContext context)
                 {
                         _logger = logger;
@@ -17,7 +19,6 @@ namespace FileGoat.Controllers
 
                 public IActionResult Index()
                 {
-                        _logger.LogInformation("Gone home");
                         return View();
                 }
         }

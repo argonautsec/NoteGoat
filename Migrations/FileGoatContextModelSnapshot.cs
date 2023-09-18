@@ -116,6 +116,10 @@ namespace FileGoat.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("UserId")
+                        .HasMaxLength(50)
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");

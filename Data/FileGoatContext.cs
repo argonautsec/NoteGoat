@@ -17,6 +17,8 @@ namespace FileGoat.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Repos)
                 .WithMany(e => e.Users);
@@ -24,5 +26,8 @@ namespace FileGoat.Data
 
 
         public DbSet<FileGoat.Models.Note> Note { get; set; } = default!;
+
+
+        public DbSet<FileGoat.Models.Repo> Repo { get; set; } = default!;
     }
 }

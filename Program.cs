@@ -11,7 +11,11 @@ builder.Services.AddDbContext<FileGoatContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("FileGoatContext") ?? throw new InvalidOperationException("Connection string 'NoteContext' not found.")));
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<FileGoatContext>();
-
+builder.Services.ConfigureApplicationCookie(o =>
+{
+    o.SlidingExpiration = true;
+    o.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

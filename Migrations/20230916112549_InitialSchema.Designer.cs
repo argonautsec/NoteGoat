@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileGoat.Migrations
 {
     [DbContext(typeof(FileGoatContext))]
-    [Migration("20230916061818_InitialSchema")]
+    [Migration("20230916112549_InitialSchema")]
     partial class InitialSchema
     {
         /// <inheritdoc />
@@ -117,6 +117,10 @@ namespace FileGoat.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasMaxLength(50)
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
