@@ -3,7 +3,15 @@
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-
+@if (SignInManager.IsSignedIn(User))
+{
+    <form class="d-flex">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-secondary" type="button">Search</button>
+        </div>
+    </form>
+}
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {

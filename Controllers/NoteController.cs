@@ -12,16 +12,16 @@ using Microsoft.AspNetCore.Authorization;
 namespace FileGoat
 {
     [Authorize]
-    public class NotesController : Controller
+    public class NoteController : Controller
     {
         private readonly FileGoatContext _context;
 
-        public NotesController(FileGoatContext context)
+        public NoteController(FileGoatContext context)
         {
             _context = context;
         }
 
-        // GET: Notes
+        // GET: Note
         public async Task<IActionResult> Index()
         {
             return _context.Note != null ?
@@ -29,7 +29,7 @@ namespace FileGoat
                         Problem("Entity set 'FileGoatContext.Note'  is null.");
         }
 
-        // GET: Notes/Details/5
+        // GET: Note/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Note == null)
@@ -47,13 +47,13 @@ namespace FileGoat
             return View(note);
         }
 
-        // GET: Notes/Create
+        // GET: Note/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Notes/Create
+        // POST: Note/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -69,7 +69,7 @@ namespace FileGoat
             return View(note);
         }
 
-        // GET: Notes/Edit/5
+        // GET: Note/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Note == null)
@@ -85,7 +85,7 @@ namespace FileGoat
             return View(note);
         }
 
-        // POST: Notes/Edit/5
+        // POST: Note/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -120,7 +120,7 @@ namespace FileGoat
             return View(note);
         }
 
-        // GET: Notes/Delete/5
+        // GET: Note/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Note == null)
@@ -138,7 +138,7 @@ namespace FileGoat
             return View(note);
         }
 
-        // POST: Notes/Delete/5
+        // POST: Note/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

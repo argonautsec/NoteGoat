@@ -12,16 +12,16 @@ using Microsoft.AspNetCore.Authorization;
 namespace FileGoat.Controllers
 {
     [Authorize]
-    public class ReposController : Controller
+    public class RepoController : Controller
     {
         private readonly FileGoatContext _context;
 
-        public ReposController(FileGoatContext context)
+        public RepoController(FileGoatContext context)
         {
             _context = context;
         }
 
-        // GET: Repos
+        // GET: Repo
         public async Task<IActionResult> Index()
         {
             return _context.Repo != null ?
@@ -29,7 +29,7 @@ namespace FileGoat.Controllers
                         Problem("Entity set 'FileGoatContext.Repo'  is null.");
         }
 
-        // GET: Repos/Details/5
+        // GET: Repo/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Repo == null)
@@ -47,13 +47,13 @@ namespace FileGoat.Controllers
             return View(repo);
         }
 
-        // GET: Repos/Create
+        // GET: Repo/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Repos/Create
+        // POST: Repo/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -69,7 +69,7 @@ namespace FileGoat.Controllers
             return View(repo);
         }
 
-        // GET: Repos/Edit/5
+        // GET: Repo/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Repo == null)
@@ -85,7 +85,7 @@ namespace FileGoat.Controllers
             return View(repo);
         }
 
-        // POST: Repos/Edit/5
+        // POST: Repo/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -120,7 +120,7 @@ namespace FileGoat.Controllers
             return View(repo);
         }
 
-        // GET: Repos/Delete/5
+        // GET: Repo/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Repo == null)
@@ -138,7 +138,7 @@ namespace FileGoat.Controllers
             return View(repo);
         }
 
-        // POST: Repos/Delete/5
+        // POST: Repo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

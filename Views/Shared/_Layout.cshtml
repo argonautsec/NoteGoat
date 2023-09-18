@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using FileGoat.Models
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
@@ -19,7 +18,7 @@
 <body>
     <header>
         <nav
-            class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 justift-content-between">
+            class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 justify-content-between">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">FileGoat</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -27,25 +26,24 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav me-auto flex-grow-1">
+                    <ul class="navbar-nav ">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/">Home</a>
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Notes">Notes</a>
+                                <a class="nav-link text-dark" asp-controller="Note">Notes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Repos">Repos</a>
+                                <a class="nav-link text-dark" asp-controller="Repo">Repos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark">Admin</a>
+                                <a class="nav-link text-dark" asp-controller="Role">Roles</a>
                             </li>
                         }
                     </ul>
-                    <partial name="_SearchPartial" />
-                    <partial name="_LoginPartial" />
+                    <partial name="_RightNavPartial" />
                 </div>
             </div>
         </nav>
