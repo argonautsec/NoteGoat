@@ -1,4 +1,4 @@
-@model FileGoat.Models.Repo
+@model ViewModels.Repo.RepoEdit
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,21 +10,49 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <input type="hidden" name="repoId" asp-for="Repo.Id" />
+            <div class="form-group mb-3">
+                <label asp-for="Repo.Name" class="form-label"></label>
+                <input asp-for="Repo.Name" name="repoName" class="form-control" />
+                <span asp-validation-for="Repo.Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="form-group mb-3">
+                <label asp-for="Repo.Description" class="form-label"></label>
+                <input asp-for="Repo.Description" name="repoDescription" class="form-control" />
+                <span asp-validation-for="Repo.Description" class="text-danger"></span>
             </div>
+            <div class="mb-3">
+                @if (Model.NonMembers.Count() > 0)
+                {
+                    <label for="AddIds" class="form-label">Add Users</label>
+                }
+                @foreach (User user in Model.NonMembers)
+                {
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" Name="AddUserIds" type="checkbox" role="switch" value="@user.Id" />
+                        <label class="form-check-label" for="@user.Id">@user.UserName</label>
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                @if (Model.Members.Count() > 0)
+                {
+                    <label for="AddIds" class="form-label">Remove Users</label>
+                }
+                @foreach (User user in Model.Members)
+                {
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" name="DeleteUserIds" type="checkbox" role="switch"
+                            value="@user.Id" />
+                        <label class="form-check-label" for="@user.Id">@user.UserName</label>
+                    </div>
+                }
+            </div>
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary my-2" />
             </div>
         </form>
     </div>
@@ -35,5 +63,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

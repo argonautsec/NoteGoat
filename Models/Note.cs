@@ -15,7 +15,7 @@ public class Note
         public required string Content { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
 
         public string? FileName { get; set; }
 

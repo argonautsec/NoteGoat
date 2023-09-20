@@ -1,25 +1,22 @@
 using FileGoat.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace FileGoat.Controllers
+namespace FileGoat.Controllers;
+
+public class HomeController : Controller
 {
-        public class HomeController : Controller
+        private ILogger<HomeController> _logger;
+        private FileGoatContext _context;
+
+
+        public HomeController(ILogger<HomeController> logger, FileGoatContext context)
         {
-                private ILogger<HomeController> _logger;
-                private FileGoatContext _context;
+                _logger = logger;
+                _context = context;
+        }
 
-
-                public HomeController(ILogger<HomeController> logger, FileGoatContext context)
-                {
-                        _logger = logger;
-                        _context = context;
-                }
-
-                public IActionResult Index()
-                {
-                        return View();
-                }
+        public IActionResult Index()
+        {
+                return View();
         }
 }

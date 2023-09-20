@@ -1,16 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FileGoat.ViewModels.Role
+namespace FileGoat.ViewModels.Role;
+
+public class RoleModification
 {
-        public class RoleModification
-        {
-                [Required]
-                public string RoleName { get; set; } = "";
+        [Required]
+        public string RoleName { get; set; } = "";
 
-                public string RoleId { get; set; } = "";
+        public string RoleId { get; set; } = "";
 
-                public string[]? AddIds { get; set; }
+        public string[]? AddIds { get; set; }
 
-                public string[]? DeleteIds { get; set; }
-        }
+        public string[]? DeleteIds { get; set; }
 }
