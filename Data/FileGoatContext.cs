@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FileGoat.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace FileGoat.Data
 {
@@ -25,9 +22,10 @@ namespace FileGoat.Data
         }
 
 
-        public DbSet<FileGoat.Models.Note> Note { get; set; } = default!;
+        public DbSet<Note> Note { get; set; } = default!;
 
+        public DbSet<Repo> Repo { get; set; } = default!;
 
-        public DbSet<FileGoat.Models.Repo> Repo { get; set; } = default!;
+        public DbSet<User> User { get; set; } = default!;
     }
 }
