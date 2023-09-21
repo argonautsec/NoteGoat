@@ -13,37 +13,20 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="form-group my-2">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-2">
                 <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span>
+                <textarea asp-for="Content" class="form-control" rows=10></textarea>
             </div>
-            <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" class="form-control" />
-                <span asp-validation-for="Created" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FileName" class="control-label"></label>
-                <input asp-for="FileName" class="form-control" />
-                <span asp-validation-for="FileName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FileContent" class="control-label"></label>
-                <input asp-for="FileContent" class="form-control" />
-                <span asp-validation-for="FileContent" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group my-2">
                 <label asp-for="RepoId" class="control-label"></label>
-                <select asp-for="RepoId" class="form-control" asp-items="ViewBag.RepoId"></select>
-                <span asp-validation-for="RepoId" class="text-danger"></span>
+                <select asp-for="RepoId" class="form-control" asp-items="ViewBag.Repos"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group my-2">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -55,5 +38,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

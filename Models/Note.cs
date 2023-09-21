@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,5 +23,6 @@ public class Note
         public byte[]? FileContent { get; set; }
 
         [ForeignKey("Repo")]
+        [DisplayName("Repository")]
         public int RepoId { get; set; }
 }

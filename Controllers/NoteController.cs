@@ -4,6 +4,7 @@ using FileGoat.Data;
 using FileGoat.Models;
 using Microsoft.AspNetCore.Authorization;
 using FileGoat.Areas.Identity.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FileGoat;
 
@@ -27,31 +28,20 @@ public class NoteController : Controller
                     Problem("Entity set 'FileGoatContext.Note'  is null.");
     }
 
-    // GET: Note/Details/5
-    public async Task<IActionResult> Details(int? id)
-    {
-        if (id == null || _context.Note == null)
-        {
-            return NotFound();
-        }
-
-        var note = await _context.Note
-            .FirstOrDefaultAsync(m => m.Id == id);
-        if (note == null)
-        {
-            return NotFound();
-        }
-
-        return View(note);
-    }
-
     // GET: Note/Create
     public async Task<IActionResult> Create()
     {
-
         var user = await _context.User.FirstAsync(u => u.UserName == User.Identity.Name);
-        _logger.LogInformation("User ID is {}", user.Id);
-        // var assignedRepos = await _context.Repo.FindAsync();
+        var assignedRepos = await _context.Repo
+                        .Include(r => r.Users)
+                        .Where(r => r.Users.Contains(user)).ToListAsync();
+
+        ViewBag.Repos = assignedRepos.Select(i => new SelectListItem
+        {
+            Text = i.Name,
+            Value = i.Id.ToString()
+        }).ToList();
+
         return View();
     }
 
@@ -84,6 +74,19 @@ public class NoteController : Controller
         {
             return NotFound();
         }
+
+        var user = await _context.User.FirstAsync(u => u.UserName == User.Identity.Name);
+        var assignedRepos = await _context.Repo
+                        .Include(r => r.Users)
+                        .Where(r => r.Users.Contains(user)).ToListAsync();
+
+        ViewBag.Repos = assignedRepos.Select(i => new SelectListItem
+        {
+            Text = i.Name,
+            Value = i.Id.ToString()
+        }).ToList();
+
+
         return View(note);
     }
 

@@ -34,24 +34,6 @@ public class RepoController : Controller
                     Problem("Entity set 'FileGoatContext.Repo'  is null.");
     }
 
-    // GET: Repo/Details/5
-    public async Task<IActionResult> Details(int? id)
-    {
-        if (id == null || _context.Repo == null)
-        {
-            return NotFound();
-        }
-
-        var repo = await _context.Repo
-            .FirstOrDefaultAsync(m => m.Id == id);
-        if (repo == null)
-        {
-            return NotFound();
-        }
-
-        return View(repo);
-    }
-
     // GET: Repo/Create
     public IActionResult Create()
     {
@@ -116,6 +98,9 @@ public class RepoController : Controller
         {
             return await Edit(model.RepoId);
         }
+
+        repo.Name = model.RepoName;
+        repo.Description = model.RepoDescription;
 
         foreach (string userId in model.DeleteUserIds ?? Array.Empty<string>())
         {

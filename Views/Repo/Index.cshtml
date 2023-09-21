@@ -4,52 +4,30 @@
     ViewData["Title"] = "Repos";
 }
 
-<h1>Manage Repositories</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @if (item.Users.Any())
-                    {
-                        @string.Join(",", item.Users.Select(u => u.UserName))
-                    }
-                    else
-                    {
-                        <span>No Users</span>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="text-center">
+    <h2 class="display-4 my-3">Manage Repositories</h2>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="d-flex mb-3 justify-content-around flex-wrap">
+            @foreach (var item in Model)
+            {
+                <div class="card mx-2 my-2">
+                    <div class="card-header">
+                        @Html.DisplayFor(model => item.Name)
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Html.DisplayFor(model => item.Description)</p>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <p class="mt-3">
+            <a asp-action="Create" class="btn btn-primary">Create New Repository</a>
+        </p>
+    </div>
+</div>

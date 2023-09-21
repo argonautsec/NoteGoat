@@ -7,7 +7,7 @@ using FileGoat.Areas.Identity.Seed;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddMvc();
 builder.Services.AddDbContext<FileGoatContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("FileGoatContext") ?? throw new InvalidOperationException("Connection string 'NoteContext' not found.")));
 

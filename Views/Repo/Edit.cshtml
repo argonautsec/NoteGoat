@@ -4,10 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h3>Edit Repo</h3>
 
-<h4>Repo</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
@@ -19,38 +17,40 @@
                 <span asp-validation-for="Repo.Name" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="Repo.Description" class="form-label"></label>
-                <input asp-for="Repo.Description" name="repoDescription" class="form-control" />
+                <div class="form-floating">
+                    <textarea style="height: 100px" name="repoDescription" asp-for="Repo.Description"
+                        class="form-control" placeholder="Put a description here" id="floatingTextarea"></textarea>
+                    <label asp-for="Repo.Description" class="form-label"></label>
+                </div>
                 <span asp-validation-for="Repo.Description" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                @if (Model.NonMembers.Count() > 0)
-                {
+            @if (Model.NonMembers.Count() > 0)
+            {
+                <div class="mb-3 card">
                     <label for="AddIds" class="form-label">Add Users</label>
-                }
-                @foreach (User user in Model.NonMembers)
-                {
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" Name="AddUserIds" type="checkbox" role="switch" value="@user.Id" />
-                        <label class="form-check-label" for="@user.Id">@user.UserName</label>
-                    </div>
-                }
-            </div>
-            <div class="mb-3">
-                @if (Model.Members.Count() > 0)
-                {
+                    @foreach (User user in Model.NonMembers)
+                    {
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" Name="AddUserIds" type="checkbox" role="switch" value="@user.Id" />
+                            <label class="form-check-label" for="@user.Id">@user.UserName</label>
+                        </div>
+                    }
+                </div>
+            }
+            @if (Model.Members.Count() > 0)
+            {
+                <div class="mb-3 card p-2">
                     <label for="AddIds" class="form-label">Remove Users</label>
-                }
-                @foreach (User user in Model.Members)
-                {
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" name="DeleteUserIds" type="checkbox" role="switch"
-                            value="@user.Id" />
-                        <label class="form-check-label" for="@user.Id">@user.UserName</label>
-                    </div>
-                }
-            </div>
-
+                    @foreach (User user in Model.Members)
+                    {
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" name="DeleteUserIds" type="checkbox" role="switch"
+                                value="@user.Id" />
+                            <label class="form-check-label" for="@user.Id">@user.UserName</label>
+                        </div>
+                    }
+                </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary my-2" />
             </div>
