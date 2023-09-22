@@ -25,6 +25,8 @@ public class Note
         [DisplayName("Repository")]
         public int RepoId { get; set; }
 
+        public virtual Repo? Repo { get; set; }
+
         public override string ToString()
         {
                 return $"Id={Id},Title={Title}, Content={Content}, Created={Created}, Attachment={Attachment}, RepoId={RepoId}";

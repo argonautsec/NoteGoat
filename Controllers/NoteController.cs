@@ -23,8 +23,18 @@ public class NoteController : Controller
     // GET: Note
     public async Task<IActionResult> Index()
     {
+        var user = await _context.User.FirstAsync(u => u.UserName == User.Identity.Name);
+        var assignedRepos = await _context.Repo
+                        .Include(r => r.Users)
+                        .Where(r => r.Users.Contains(user))
+                        .Select(r => r.Id)
+                        .ToListAsync();
+
         return _context.Note != null ?
-                    View(await _context.Note.Include(n => n.Attachment)
+                    View(await _context.Note
+                    .Include(n => n.Attachment)
+                    .Include(r => r.Repo)
+                    .Where(n => assignedRepos.Contains(n.RepoId))
                     .ToListAsync()) :
                     Problem("Entity set 'FileGoatContext.Note'  is null.");
     }
@@ -76,6 +86,18 @@ public class NoteController : Controller
         if (!ModelState.IsValid)
         {
             return View(note);
+        }
+
+        var user = await _context.User.FirstAsync(u => u.UserName == User.Identity.Name);
+        var assignedRepos = await _context.Repo
+                        .Include(r => r.Users)
+                        .Where(r => r.Users.Contains(user))
+                        .Select(r => r.Id)
+                        .ToListAsync();
+
+        if (!assignedRepos.Contains(note.RepoId))
+        {
+            return Forbid();
         }
 
         if (formFile != null)
@@ -135,6 +157,18 @@ public class NoteController : Controller
         if (!ModelState.IsValid)
         {
             return View(note);
+        }
+
+        var user = await _context.User.FirstAsync(u => u.UserName == User.Identity.Name);
+        var assignedRepos = await _context.Repo
+                        .Include(r => r.Users)
+                        .Where(r => r.Users.Contains(user))
+                        .Select(r => r.Id)
+                        .ToListAsync();
+
+        if (!assignedRepos.Contains(note.RepoId))
+        {
+            return Forbid();
         }
 
         if (formFile != null)
@@ -204,6 +238,18 @@ public class NoteController : Controller
         var note = await _context.Note.FindAsync(id);
         if (note != null)
         {
+            var user = await _context.User.FirstAsync(u => u.UserName == User.Identity.Name);
+            var assignedRepos = await _context.Repo
+                            .Include(r => r.Users)
+                            .Where(r => r.Users.Contains(user))
+                            .Select(r => r.Id)
+                            .ToListAsync();
+
+            if (!assignedRepos.Contains(note.RepoId))
+            {
+                return Forbid();
+            }
+
             _context.Note.Remove(note);
         }
 

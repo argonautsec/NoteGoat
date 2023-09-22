@@ -18,16 +18,24 @@
                         @Html.DisplayFor(model => item.Title)
                     </div>
                     <div class="card-body">
-                        <p class="card-text">@Html.DisplayFor(model => item.Content)</p>
-                        <p class="card-text">
+                        <div class="card-text my-2">@Html.DisplayFor(model => item.Content)</div>
+                        <div class="card-text">
                             <small class="text-muted">Created on @Html.DisplayFor(model =>
                             item.Created)</small>
-                        </p>
+                        </div>
+
+                        @if (item.Repo != null)
+                        {
+                            <div class="card-text">
+                                <small class="text-muted">Repo: @Html.DisplayFor(model => item.Repo.Name)</small>
+                            </div>
+                        }
                         @if (item.Attachment != null)
                         {
-                            <p class="card-text">
-                                <a asp-action="DownloadAttachment" asp-route-id="@item.Attachment.Id">@item.Attachment.Name</a>
-                            </p>
+                            <div class="card-text my-3">
+                                Attachment: <a asp-action="DownloadAttachment"
+                                    asp-route-id="@item.Attachment.Id">@item.Attachment.Name</a>
+                            </div>
                         }
                     </div>
                     <div class="card-footer">
