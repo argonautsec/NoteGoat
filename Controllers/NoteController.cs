@@ -21,8 +21,10 @@ public class NoteController : Controller
     }
 
     // GET: Note
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? q)
     {
+        _logger.LogInformation("Query string = {}", q);
+
         var user = await _context.User.FirstAsync(u => u.UserName == User.Identity.Name);
         var assignedRepos = await _context.Repo
                         .Include(r => r.Users)
@@ -30,11 +32,13 @@ public class NoteController : Controller
                         .Select(r => r.Id)
                         .ToListAsync();
 
+        ViewBag.Q = q;
         return _context.Note != null ?
                     View(await _context.Note
                     .Include(n => n.Attachment)
                     .Include(r => r.Repo)
                     .Where(n => assignedRepos.Contains(n.RepoId))
+                    .Where(n => n.Content.Contains(q) || n.Title.Contains(q) || q == null)
                     .ToListAsync()) :
                     Problem("Entity set 'FileGoatContext.Note'  is null.");
     }
