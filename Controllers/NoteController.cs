@@ -50,15 +50,29 @@ public class NoteController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Content,Created,FileName,FileContent,RepoId")] Note note)
+    public async Task<IActionResult> Create(
+        [Bind("Attachment")] IFormFile? attachment,
+        [Bind("Id,Title,Content,Created,RepoId")] Note note)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            _context.Add(note);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View(note);
         }
-        return View(note);
+
+        if (attachment != null)
+        {
+
+            using MemoryStream memoryStream = new();
+
+            await attachment.CopyToAsync(memoryStream);
+            note.FileName = attachment.FileName;
+            note.FileContent = memoryStream.ToArray();
+        }
+
+        _logger.LogInformation("Creating note {}", note);
+        _context.Add(note);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
     }
 
     // GET: Note/Edit/5
@@ -86,7 +100,7 @@ public class NoteController : Controller
             Value = i.Id.ToString()
         }).ToList();
 
-
+        _logger.LogInformation("Loading note {}", note);
         return View(note);
     }
 
@@ -95,34 +109,50 @@ public class NoteController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,Created,FileName,FileContent,RepoId")] Note note)
+    public async Task<IActionResult> Edit(int id,
+        [Bind("Attachment")] IFormFile? attachment,
+        [Bind("Id,Title,Content,Created,FileName,RepoId")] Note note)
     {
         if (id != note.Id)
         {
             return NotFound();
         }
 
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            try
-            {
-                _context.Update(note);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NoteExists(note.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
+            return View(note);
         }
-        return View(note);
+
+        if (attachment != null)
+        {
+            _logger.LogInformation("Attachment file name {}", attachment.FileName);
+
+            using MemoryStream memoryStream = new();
+
+            await attachment.CopyToAsync(memoryStream);
+            note.FileName = attachment.FileName;
+            note.FileContent = memoryStream.ToArray();
+        }
+
+        try
+        {
+            _context.Update(note);
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Saved note {}", note);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!NoteExists(note.Id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        return RedirectToAction(nameof(Index));
+
     }
 
     // GET: Note/Delete/5
