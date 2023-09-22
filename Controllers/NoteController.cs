@@ -24,7 +24,8 @@ public class NoteController : Controller
     public async Task<IActionResult> Index()
     {
         return _context.Note != null ?
-                    View(await _context.Note.ToListAsync()) :
+                    View(await _context.Note.Include(n => n.Attachment)
+                    .ToListAsync()) :
                     Problem("Entity set 'FileGoatContext.Note'  is null.");
     }
 
@@ -45,13 +46,31 @@ public class NoteController : Controller
         return View();
     }
 
+
+    // GET: Note/DownloadAttachment/4
+    public async Task<IActionResult> DownloadAttachment(int? id)
+    {
+        if (id == null || _context.Attachment == null)
+        {
+            return NotFound();
+        }
+
+        var attachment = await _context.Attachment.FindAsync(id);
+        if (attachment == null)
+        {
+            return NotFound();
+        }
+
+        return File(attachment.Content, attachment.ContentType, attachment.Name);
+    }
+
     // POST: Note/Create
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(
-        [Bind("Attachment")] IFormFile? attachment,
+        IFormFile? formFile,
         [Bind("Id,Title,Content,Created,RepoId")] Note note)
     {
         if (!ModelState.IsValid)
@@ -59,14 +78,9 @@ public class NoteController : Controller
             return View(note);
         }
 
-        if (attachment != null)
+        if (formFile != null)
         {
-
-            using MemoryStream memoryStream = new();
-
-            await attachment.CopyToAsync(memoryStream);
-            note.FileName = attachment.FileName;
-            note.FileContent = memoryStream.ToArray();
+            note.Attachment = await Attachment.FromFormFileAsync(formFile);
         }
 
         _logger.LogInformation("Creating note {}", note);
@@ -110,7 +124,7 @@ public class NoteController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id,
-        [Bind("Attachment")] IFormFile? attachment,
+        IFormFile? formFile,
         [Bind("Id,Title,Content,Created,FileName,RepoId")] Note note)
     {
         if (id != note.Id)
@@ -123,15 +137,20 @@ public class NoteController : Controller
             return View(note);
         }
 
-        if (attachment != null)
+        if (formFile != null)
         {
-            _logger.LogInformation("Attachment file name {}", attachment.FileName);
+            var oldAttachment = _context.Attachment.FirstOrDefault(a => a.NoteId == id);
+            if (oldAttachment != null)
+            {
+                _context.Attachment.Remove(oldAttachment);
+            }
+            var attachment = await Attachment.FromFormFileAsync(formFile);
+            attachment.NoteId = id;
+            _context.Add(attachment);
 
-            using MemoryStream memoryStream = new();
+            await _context.SaveChangesAsync();
 
-            await attachment.CopyToAsync(memoryStream);
-            note.FileName = attachment.FileName;
-            note.FileContent = memoryStream.ToArray();
+            note.Attachment = attachment;
         }
 
         try

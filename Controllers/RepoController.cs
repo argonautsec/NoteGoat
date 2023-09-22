@@ -29,9 +29,7 @@ public class RepoController : Controller
     // GET: Repo
     public async Task<IActionResult> Index()
     {
-        return _context.Repo != null ?
-                    View(await _context.Repo.Include(r => r.Users).ToListAsync()) :
-                    Problem("Entity set 'FileGoatContext.Repo'  is null.");
+        return View(await _context.Repo.Include(r => r.Users).ToListAsync());
     }
 
     // GET: Repo/Create
@@ -88,6 +86,8 @@ public class RepoController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int? id, RepoModification model)
     {
+        _logger.LogInformation("received modification request {}", model);
+
         Repo? repo = await _context.Repo.Include(r => r.Users).FirstAsync(r => r.Id == id);
         if (repo == null)
         {

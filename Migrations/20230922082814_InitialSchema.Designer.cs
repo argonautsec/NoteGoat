@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileGoat.Migrations
 {
     [DbContext(typeof(FileGoatContext))]
-    [Migration("20230916112549_InitialSchema")]
+    [Migration("20230922082814_InitialSchema")]
     partial class InitialSchema
     {
         /// <inheritdoc />
@@ -19,6 +19,35 @@ namespace FileGoat.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
+
+            modelBuilder.Entity("FileGoat.Models.Attachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NoteId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NoteId")
+                        .IsUnique();
+
+                    b.ToTable("Attachment");
+                });
 
             modelBuilder.Entity("FileGoat.Models.Note", b =>
                 {
@@ -31,12 +60,6 @@ namespace FileGoat.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("FileContent")
-                        .HasColumnType("BLOB");
-
-                    b.Property<string>("FileName")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("RepoId")
@@ -60,6 +83,7 @@ namespace FileGoat.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -67,6 +91,9 @@ namespace FileGoat.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Repo");
                 });
@@ -286,6 +313,15 @@ namespace FileGoat.Migrations
                     b.ToTable("RepoUser");
                 });
 
+            modelBuilder.Entity("FileGoat.Models.Attachment", b =>
+                {
+                    b.HasOne("FileGoat.Models.Note", null)
+                        .WithOne("Attachment")
+                        .HasForeignKey("FileGoat.Models.Attachment", "NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("FileGoat.Models.Note", b =>
                 {
                     b.HasOne("FileGoat.Models.Repo", null)
@@ -359,6 +395,11 @@ namespace FileGoat.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FileGoat.Models.Note", b =>
+                {
+                    b.Navigation("Attachment");
                 });
 
             modelBuilder.Entity("FileGoat.Models.Repo", b =>

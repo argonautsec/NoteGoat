@@ -12,7 +12,8 @@ public class Repo
 
         [Required]
         public required string Name { get; set; }
-        public string? Description { get; set; }
+        [Required]
+        public required string Description { get; set; }
 
         public List<Note> Notes { get; } = new();
         public List<User> Users { get; } = new();

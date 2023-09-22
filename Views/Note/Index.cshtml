@@ -20,9 +20,17 @@
                     <div class="card-body">
                         <p class="card-text">@Html.DisplayFor(model => item.Content)</p>
                         <p class="card-text">
-                            <small class="text-muted">Created on @Html.DisplayFor(model=>
+                            <small class="text-muted">Created on @Html.DisplayFor(model =>
                             item.Created)</small>
                         </p>
+                        @if (item.Attachment != null)
+                        {
+                            <p class="card-text">
+                                <a asp-action="DownloadAttachment" asp-route-id="@item.Attachment.Id">@item.Attachment.Name</a>
+                            </p>
+                        }
+                    </div>
+                    <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
                     </div>

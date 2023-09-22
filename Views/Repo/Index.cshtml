@@ -18,6 +18,10 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">@Html.DisplayFor(model => item.Description)</p>
+                        <h6 class="display-7 mt-4">Users</h6>
+                        <p class="card-text m-3"><span i-users="@item.Users"></span></p>
+                    </div>
+                    <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
                     </div>

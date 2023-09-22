@@ -58,7 +58,7 @@ namespace FileGoat.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -180,8 +180,6 @@ namespace FileGoat.Migrations
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     Content = table.Column<string>(type: "TEXT", nullable: false),
                     Created = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    FileName = table.Column<string>(type: "TEXT", nullable: true),
-                    FileContent = table.Column<byte[]>(type: "BLOB", nullable: true),
                     RepoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -215,6 +213,28 @@ namespace FileGoat.Migrations
                         name: "FK_RepoUser_Repo_ReposId",
                         column: x => x.ReposId,
                         principalTable: "Repo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attachment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Content = table.Column<byte[]>(type: "BLOB", nullable: false),
+                    ContentType = table.Column<string>(type: "TEXT", nullable: false),
+                    NoteId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attachment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Attachment_Note_NoteId",
+                        column: x => x.NoteId,
+                        principalTable: "Note",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -257,9 +277,21 @@ namespace FileGoat.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Attachment_NoteId",
+                table: "Attachment",
+                column: "NoteId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Note_RepoId",
                 table: "Note",
                 column: "RepoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Repo_Name",
+                table: "Repo",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_RepoUser_UsersId",
@@ -286,13 +318,16 @@ namespace FileGoat.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Note");
+                name: "Attachment");
 
             migrationBuilder.DropTable(
                 name: "RepoUser");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Note");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

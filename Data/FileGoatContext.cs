@@ -27,4 +27,6 @@ public class FileGoatContext : IdentityDbContext<User>
     public DbSet<Repo> Repo { get; set; } = default!;
 
     public DbSet<User> User { get; set; } = default!;
+
+    public DbSet<Attachment> Attachment { get; set; } = default!;
 }

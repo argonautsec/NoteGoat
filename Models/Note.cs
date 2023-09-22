@@ -10,6 +10,7 @@ public class Note
         public int Id { get; set; }
 
         [Required]
+        [MinLength(5)]
         public required string Title { get; set; }
 
         [Required]
@@ -18,9 +19,7 @@ public class Note
         [DataType(DataType.DateTime)]
         public DateTime Created { get; set; } = DateTime.Now;
 
-        public string? FileName { get; set; }
-
-        public byte[]? FileContent { get; set; }
+        public virtual Attachment? Attachment { get; set; }
 
         [ForeignKey("Repo")]
         [DisplayName("Repository")]
@@ -28,6 +27,6 @@ public class Note
 
         public override string ToString()
         {
-                return $"Id={Id},Title={Title}, Content={Content}, Created={Created}, FileName={FileName}, RepoId={RepoId}";
+                return $"Id={Id},Title={Title}, Content={Content}, Created={Created}, Attachment={Attachment}, RepoId={RepoId}";
         }
 }
