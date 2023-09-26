@@ -1,7 +1,7 @@
-using FileGoat.Areas.Identity.Models;
+using NoteGoat.Areas.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace FileGoat.Areas.Identity.Seed
+namespace NoteGoat.Areas.Identity.Seed
 {
         public class IdentityRoleSeeder
         {

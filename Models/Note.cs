@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FileGoat.Models;
+namespace NoteGoat.Models;
 
 public class Note
 {

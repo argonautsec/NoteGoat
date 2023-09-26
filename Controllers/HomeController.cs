@@ -1,15 +1,15 @@
-using FileGoat.Data;
+using NoteGoat.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FileGoat.Controllers;
+namespace NoteGoat.Controllers;
 
 public class HomeController : Controller
 {
         private ILogger<HomeController> _logger;
-        private FileGoatContext _context;
+        private NoteGoatContext _context;
 
 
-        public HomeController(ILogger<HomeController> logger, FileGoatContext context)
+        public HomeController(ILogger<HomeController> logger, NoteGoatContext context)
         {
                 _logger = logger;
                 _context = context;

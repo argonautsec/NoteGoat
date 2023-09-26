@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using FileGoat.Models;
+using NoteGoat.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-namespace FileGoat.Data;
+namespace NoteGoat.Data;
 
-public class FileGoatContext : IdentityDbContext<User>
+public class NoteGoatContext : IdentityDbContext<User>
 {
-    public FileGoatContext(DbContextOptions<FileGoatContext> options)
+    public NoteGoatContext(DbContextOptions<NoteGoatContext> options)
         : base(options)
     {
     }

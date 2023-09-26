@@ -1,6 +1,6 @@
-using FileGoat.Models;
+using NoteGoat.Models;
 
-namespace FileGoat.ViewModels.Repo;
+namespace NoteGoat.ViewModels.Repo;
 
 public class RepoEdit
 {

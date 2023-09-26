@@ -6,16 +6,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
-using FileGoat.Models;
+using NoteGoat.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using FileGoat.Data;
-using FileGoat.Areas.Identity.Models;
+using NoteGoat.Data;
+using NoteGoat.Areas.Identity.Models;
 
-namespace FileGoat.Areas.Identity.Pages.Account
+namespace NoteGoat.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
@@ -26,7 +26,7 @@ namespace FileGoat.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly FileGoatContext _context;
+        private readonly NoteGoatContext _context;
 
         public RegisterModel(
             UserManager<User> userManager,
@@ -35,7 +35,7 @@ namespace FileGoat.Areas.Identity.Pages.Account
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            FileGoatContext context)
+            NoteGoatContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;

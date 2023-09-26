@@ -1,4 +1,4 @@
-namespace FileGoat.Areas.Identity.Models;
+namespace NoteGoat.Areas.Identity.Models;
 
 public class Role
 {

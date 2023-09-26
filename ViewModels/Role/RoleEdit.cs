@@ -1,7 +1,7 @@
-using FileGoat.Models;
+using NoteGoat.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace FileGoat.ViewModels.Role;
+namespace NoteGoat.ViewModels.Role;
 
 public class RoleEdit
 {

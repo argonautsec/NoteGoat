@@ -1,7 +1,7 @@
-using FileGoat.Models;
+using NoteGoat.Models;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace FileGoat.TagHelpers;
+namespace NoteGoat.TagHelpers;
 
 [HtmlTargetElement("span", Attributes = "i-users")]
 public class UserListTagHelper : TagHelper

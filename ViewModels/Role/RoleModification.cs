@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FileGoat.ViewModels.Role;
+namespace NoteGoat.ViewModels.Role;
 
 public class RoleModification
 {

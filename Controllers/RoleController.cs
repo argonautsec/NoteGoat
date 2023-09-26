@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
-using FileGoat.Areas.Identity.Models;
-using FileGoat.Models;
-using FileGoat.ViewModels.Role;
+using NoteGoat.Areas.Identity.Models;
+using NoteGoat.Models;
+using NoteGoat.ViewModels.Role;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FileGoat.Controllers;
+namespace NoteGoat.Controllers;
 
 [Authorize(Roles = Role.Admin)]
 public class RoleController : Controller

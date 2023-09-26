@@ -1,23 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FileGoat.Data;
-using FileGoat.Models;
+using NoteGoat.Data;
+using NoteGoat.Models;
 using Microsoft.AspNetCore.Authorization;
-using FileGoat.Areas.Identity.Models;
-using FileGoat.ViewModels.Repo;
+using NoteGoat.Areas.Identity.Models;
+using NoteGoat.ViewModels.Repo;
 using Microsoft.AspNetCore.Identity;
 
-namespace FileGoat.Controllers;
+namespace NoteGoat.Controllers;
 
 [Authorize(Roles = Role.Host)]
 public class RepoController : Controller
 {
-    private readonly FileGoatContext _context;
+    private readonly NoteGoatContext _context;
     private readonly ILogger<RepoController> _logger;
     private readonly UserManager<User> _userManager;
 
     public RepoController(
-        FileGoatContext context,
+        NoteGoatContext context,
         ILogger<RepoController> logger,
         UserManager<User> userManager)
     {
@@ -154,7 +154,7 @@ public class RepoController : Controller
     {
         if (_context.Repo == null)
         {
-            return Problem("Entity set 'FileGoatContext.Repo'  is null.");
+            return Problem("Entity set 'NoteGoatContext.Repo'  is null.");
         }
         var repo = await _context.Repo.FindAsync(id);
         if (repo != null)

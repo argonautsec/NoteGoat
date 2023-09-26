@@ -1,8 +1,8 @@
-using FileGoat.Models;
+using NoteGoat.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace FileGoat.TagHelpers;
+namespace NoteGoat.TagHelpers;
 
 [HtmlTargetElement("td", Attributes = "i-role")]
 public class RoleUsersTagHelper : TagHelper

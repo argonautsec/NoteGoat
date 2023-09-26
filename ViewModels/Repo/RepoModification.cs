@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FileGoat.ViewModels.Repo;
+namespace NoteGoat.ViewModels.Repo;
 
 public class RepoModification
 {

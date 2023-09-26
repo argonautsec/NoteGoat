@@ -1,20 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FileGoat.Data;
-using FileGoat.Models;
+using NoteGoat.Data;
+using NoteGoat.Models;
 using Microsoft.AspNetCore.Authorization;
-using FileGoat.Areas.Identity.Models;
+using NoteGoat.Areas.Identity.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace FileGoat;
+namespace NoteGoat;
 
 [Authorize(Roles = Role.User)]
 public class NoteController : Controller
 {
-    private readonly FileGoatContext _context;
+    private readonly NoteGoatContext _context;
     private readonly ILogger<NoteController> _logger;
 
-    public NoteController(FileGoatContext context, ILogger<NoteController> logger)
+    public NoteController(NoteGoatContext context, ILogger<NoteController> logger)
     {
         _context = context;
         _logger = logger;
@@ -40,7 +40,7 @@ public class NoteController : Controller
                     .Where(n => assignedRepos.Contains(n.RepoId))
                     .Where(n => n.Content.Contains(q) || n.Title.Contains(q) || q == null)
                     .ToListAsync()) :
-                    Problem("Entity set 'FileGoatContext.Note'  is null.");
+                    Problem("Entity set 'NoteGoatContext.Note'  is null.");
     }
 
     // GET: Note/Create
@@ -237,7 +237,7 @@ public class NoteController : Controller
     {
         if (_context.Note == null)
         {
-            return Problem("Entity set 'FileGoatContext.Note'  is null.");
+            return Problem("Entity set 'NoteGoatContext.Note'  is null.");
         }
         var note = await _context.Note.FindAsync(id);
         if (note != null)

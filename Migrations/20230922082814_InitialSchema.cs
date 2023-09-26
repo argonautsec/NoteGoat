@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FileGoat.Migrations
+namespace NoteGoat.Migrations
 {
     /// <inheritdoc />
     public partial class InitialSchema : Migration

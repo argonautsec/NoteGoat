@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace FileGoat.Models;
+namespace NoteGoat.Models;
 
 public class User : IdentityUser
 {

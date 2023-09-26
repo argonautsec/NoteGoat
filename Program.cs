@@ -1,19 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using FileGoat.Data;
+using NoteGoat.Data;
 using Microsoft.AspNetCore.Identity;
-using FileGoat.Models;
-using FileGoat.Areas.Identity.Seed;
+using NoteGoat.Models;
+using NoteGoat.Areas.Identity.Seed;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddMvc();
-builder.Services.AddDbContext<FileGoatContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("FileGoatContext") ?? throw new InvalidOperationException("Connection string 'NoteContext' not found.")));
+builder.Services.AddDbContext<NoteGoatContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("NoteGoatContext") ?? throw new InvalidOperationException("Connection string 'NoteContext' not found.")));
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 .AddRoles<IdentityRole>()
-.AddEntityFrameworkStores<FileGoatContext>();
+.AddEntityFrameworkStores<NoteGoatContext>();
 builder.Services.ConfigureApplicationCookie(o =>
 {
     o.SlidingExpiration = true;
