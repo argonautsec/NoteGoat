@@ -5,3 +5,4 @@ NoteGoatContext*wal
 NoteGoatContext*db
 NoteGoatContext*shm
 *.log
+*.zip

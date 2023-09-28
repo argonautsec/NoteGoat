@@ -10,4 +10,19 @@
   <pre>
     @Html.Raw(ViewBag.Logs)
   </pre>
+
+  <form method="post" asp-action="Download" asp-controller="Log">
+    <div class="form-group mb-3">
+      <label for="fileTypes" class="form-label">File Types</label>
+      <div class="form-check form-switch">
+        <input class="form-check-input" Name="fileTypes" type="checkbox" role="switch" value="*.log" />
+        <label class="form-check-label" for="fileTypes">Log Files</label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" Name="fileTypes" type="checkbox" role="switch" value="*.txt" />
+        <label class="form-check-label" for="fileTypes">Text Files</label>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Download Logs</button>
+  </form>
 </div>
