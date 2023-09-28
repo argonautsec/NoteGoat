@@ -4,3 +4,4 @@ bin
 NoteGoatContext*wal
 NoteGoatContext*db
 NoteGoatContext*shm
+*.log

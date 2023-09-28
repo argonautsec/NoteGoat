@@ -1,0 +1,13 @@
+@{
+  ViewData["Title"] = "Logs";
+}
+
+<div class="text-center">
+  <h4 class="display-4 my-3">Logs</h4>
+</div>
+
+<div class="container">
+  <pre>
+    @Html.Raw(ViewBag.Logs)
+  </pre>
+</div>
