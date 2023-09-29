@@ -6,3 +6,4 @@ NoteGoatContext*db
 NoteGoatContext*shm
 *.log
 *.zip
+.config/dotnet-tools.json
