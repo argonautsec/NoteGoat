@@ -1,0 +1,45 @@
+@{
+        ViewData["Title"] = "Cheat Sheet";
+}
+
+
+<h1 class="my-4">Cheat Sheet</h1>
+
+<h3 class="my-4">Cross-Site Scripting (and hidden page)</h3>
+
+<p>Create a note with an embedded script tag that does something bad. e.g.
+        <code>&lt;script&gt;alert('')&lt;&sol;script&gt;</code>. Then go
+        to the logs at '/Log'. <em>Note:</em> you'll need to be an Admin.
+</p>
+<h3 class="my-4">Broken Access Control</h3>
+
+<p>This app has 3 pre-configured roles. Admin, Host and User. Only the Admin
+        should be able to access the logs (located at /Log), everybody that
+        is logged-in can access them.</p>
+
+<h3 class="my-4">Insecure Design</h3>
+
+<p>Create two users and two repos. Give access to one repo to everybody and the other repo to only one user. Create note
+        for both repos with attachemnts</p>
+
+<p>There are two issues. Firstly, user 1 can access a file within a Repo
+        that does not belong to her. She can also access a Note that does not belong to her.</p>
+
+<h3 class="my-4">Security Misconfiguration</h3>
+
+<p>Error Stack is enabled. To expose, go to relative url located at
+        '/Home/About'. To fix, ensure that your app is deployed in 'Production' mode
+        (<code>dotnet run --environment Production</code> when using Kestrel). See more info <a
+                href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling?view=aspnetcore-7.0#exception-handler-page">here</a>
+</p>
+
+<h3 class="my-4">Open Redirect</h3>
+
+<p>Go to '/Home/About?redirecturl=https%3A%2F%2Fgoogle.com'</p>
+
+<p><em>Note:</em> This is not necessarily a vulnerability. It really depends on the context. Developers
+        should be aware in which cases they need to only allow a local redirect and when
+        to allow a global one. See <a
+                href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.localredirect?view=aspnetcore-7.0">here</a>
+        for more info.
+</p>
