@@ -23,7 +23,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i
+            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage @(User.Identity?.Name ?? "")"><i
                     class="material-icons">account_circle</i></a>
         </li>
         <li class="nav-item">
